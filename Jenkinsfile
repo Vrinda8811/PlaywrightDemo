@@ -2,25 +2,16 @@ pipeline {
     agent any
 
     environment {
-        NODE_HOME = tool name: 'node18', type: 'NodeJS'  // Jenkins → Manage Jenkins → Global Tool Configuration → NodeJS
-        PATH = "${NODE_HOME}/bin:${env.PATH}"
+        // Optional: Add environment variables if needed
+        NODE_VERSION = "18"
+    }
+
+    tools {
+        jdk 'JDK11' // अगर Java requirement है
+        git 'Default' // Git installation name
+        // NodeJS tool configuration optional, agar globally install hai to skip kare
     }
 
     stages {
-        stage('Checkout SCM') {
+        stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Vrinda8811/PlaywrightDemo.git'
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-                sh 'npx playwright install --with-deps'
-            }
-        }
-
-        stage('Run Playwright Tests') {
-            steps {
-                // Agar tests fail ho to bhi pipeline continue kare
-                sh 'npx playwr
