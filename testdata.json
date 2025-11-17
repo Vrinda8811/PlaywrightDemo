@@ -1,0 +1,17 @@
+{
+
+"username": "admin@gmail.com",
+"password": "admin@123",
+"name": "vrinda",
+"interest": ["Cypress", "Java", "API"],
+"gender": "female",
+"address": {
+
+"area": "hsr",
+"city": "Bangalore",
+"pincode": 556699
+
+
+}
+
+}
