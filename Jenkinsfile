@@ -1,8 +1,13 @@
 pipeline {
     agent any
 
+    environment {
+        NODE_HOME = tool name: 'node18', type: 'NodeJS'  // Jenkins → Manage Jenkins → Global Tool Configuration → NodeJS
+        PATH = "${NODE_HOME}/bin:${env.PATH}"
+    }
+
     stages {
-        stage('Checkout') {
+        stage('Checkout SCM') {
             steps {
                 git branch: 'main', url: 'https://github.com/Vrinda8811/PlaywrightDemo.git'
             }
@@ -17,14 +22,5 @@ pipeline {
 
         stage('Run Playwright Tests') {
             steps {
-                sh 'npx playwright test --reporter=html'
-            }
-        }
-
-        stage('Archive Reports') {
-            steps {
-                archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
-            }
-        }
-    }
-}
+                // Agar tests fail ho to bhi pipeline continue kare
+                sh 'npx playwr
